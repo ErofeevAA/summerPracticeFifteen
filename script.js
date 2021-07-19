@@ -6,28 +6,27 @@ document.addEventListener("click", function (e) {
     let cur_element = e.target;
     if (cur_element.tagName === "TD") {
         move(cur_element.parentElement.rowIndex, cur_element.cellIndex);
+        //cur_element.style.animation = "left-right 1s 1 linear"
         drawField();
         if (isWinner()) {
             alert("ПОБЕДА!!!1");
             document.getElementById('table').style.pointerEvents = "None";
         }
-
     }
     //console.log(e.target);
 });
 
 function init() {
     fillField();
-
     drawField();
     document.getElementById('table').style.pointerEvents = "auto";
 }
 
 function fillField() {
-    let SUM_ELEM = 16
+    let NUM_ELEM = 16
     let is_free_nums = [];
     let index_row_zero;
-    for (let i = 0; i < SUM_ELEM; ++i) {
+    for (let i = 0; i < NUM_ELEM; ++i) {
         is_free_nums.push(false);
     }
 
@@ -38,7 +37,7 @@ function fillField() {
     for (let i = 0; i < WIDTH_IN_CELL; ++i) {
         for (let j = 0; j < WIDTH_IN_CELL; ++j) {
             while (true) {
-                let num = Math.floor(Math.random() * SUM_ELEM);
+                let num = Math.floor(Math.random() * NUM_ELEM);
                 if (!is_free_nums[num]) {
                     is_free_nums[num] = true;
                     field[i][j] = num;
@@ -50,6 +49,7 @@ function fillField() {
             }
         }
     }
+
     if (!hasSolve(index_row_zero)) {
         if (field[0][0] && field[0][1]) {
             let tmp = field[0][0];
@@ -76,7 +76,7 @@ function hasSolve(index_row_zero) {
             }
         }
     }
-    console.log(sum_inversion);
+    //console.log(sum_inversion);
     return !(((index_row_zero + 1) + sum_inversion) % 2);
 }
 
@@ -117,9 +117,7 @@ function drawField() {
     for (let i = 0; i < WIDTH_IN_CELL; ++i) {
         html_output += '<tr>';
         for (let j = 0; j < WIDTH_IN_CELL; ++j) {
-            html_output += '<td>';
-            html_output += field[i][j] ? field[i][j] : ' ';
-            html_output += '</td>';
+            html_output += '<td>' + (field[i][j] ? field[i][j] : ' ') + '</td>';
         }
         html_output += '</td>';
     }

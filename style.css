@@ -7,3 +7,76 @@ td {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+/*
+@keyframes left-right {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100px;
+    }
+}
+
+@-webkit-keyframes left-right {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100px;
+    }
+}
+
+@keyframes right-left {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100px;
+    }
+}
+
+@-webkit-keyframes right-left {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100px;
+    }
+}
+
+@keyframes top-down {
+    from {
+        top: 0;
+    }
+    to {
+        top: 100px;
+    }
+}
+
+@-webkit-keyframes top-down {
+    from {
+        top: 0;
+    }
+    to {
+        top: 100px;
+    }
+}
+
+@keyframes down-top {
+    from {
+        top: 0;
+    }
+    to {
+        top: -100px;
+    }
+}
+
+@-webkit-keyframes down-top {
+    from {
+        top: 0;
+    }
+    to {
+        top: -100px;
+    }
+}*/
