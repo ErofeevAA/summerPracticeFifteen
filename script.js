@@ -6,7 +6,7 @@ document.addEventListener("click", function (e) {
     let cur_element = e.target;
     if (cur_element.tagName === "TD") {
         move(cur_element.parentElement.rowIndex, cur_element.cellIndex);
-        drawTable();
+        drawField();
         if (isWinner()) {
             alert("ПОБЕДА!!!1");
             document.getElementById('table').style.pointerEvents = "None";
@@ -17,14 +17,67 @@ document.addEventListener("click", function (e) {
 });
 
 function init() {
-    field = [];
-    field.push([15, 13, 11, 6]);
-    field.push([12, 1, 5, 2]);
-    field.push([3, 4, 0, 7]);
-    field.push([9, 8, 10, 14]);
+    fillField();
 
-    drawTable();
+    drawField();
     document.getElementById('table').style.pointerEvents = "auto";
+}
+
+function fillField() {
+    let SUM_ELEM = 16
+    let is_free_nums = [];
+    let index_row_zero;
+    for (let i = 0; i < SUM_ELEM; ++i) {
+        is_free_nums.push(false);
+    }
+
+    for (let i = 0; i < WIDTH_IN_CELL; ++i) {
+        field.push([0, 0, 0, 0]);
+    }
+
+    for (let i = 0; i < WIDTH_IN_CELL; ++i) {
+        for (let j = 0; j < WIDTH_IN_CELL; ++j) {
+            while (true) {
+                let num = Math.floor(Math.random() * SUM_ELEM);
+                if (!is_free_nums[num]) {
+                    is_free_nums[num] = true;
+                    field[i][j] = num;
+                    if (!num) {
+                        index_row_zero = num;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    if (!hasSolve(index_row_zero)) {
+        if (field[0][0] && field[0][1]) {
+            let tmp = field[0][0];
+            field[0][0] = field[0][1];
+            field[0][1] = tmp;
+            return;
+        }
+        let tmp = field[0][2];
+        field[0][2] = field[0][3];
+        field[0][3] = tmp;
+    }
+}
+
+function hasSolve(index_row_zero) {
+    let sum_inversion = 0;
+    for (let i = 0; i < WIDTH_IN_CELL; ++i) {
+        for (let j = 0; j < WIDTH_IN_CELL; ++j) {
+            for (let k = 0; k <= i; ++k) {
+                for (let l = 0; l < j; ++l) {
+                    if (field[i][j] && field[i][j] < field[k][l]) {
+                        ++sum_inversion;
+                    }
+                }
+            }
+        }
+    }
+    console.log(sum_inversion);
+    return !(((index_row_zero + 1) + sum_inversion) % 2);
 }
 
 function move(y, x) {
@@ -59,17 +112,13 @@ function isWinner() {
     return true;
 }
 
-function drawTable() {
+function drawField() {
     let html_output = '';
     for (let i = 0; i < WIDTH_IN_CELL; ++i) {
         html_output += '<tr>';
         for (let j = 0; j < WIDTH_IN_CELL; ++j) {
             html_output += '<td>';
-            if (field[i][j] === 0) {
-                html_output += ' ';
-            } else {
-                html_output += field[i][j];
-            }
+            html_output += field[i][j] ? field[i][j] : ' ';
             html_output += '</td>';
         }
         html_output += '</td>';
