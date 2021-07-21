@@ -25,7 +25,7 @@ function init() {
 function fillField() {
     let NUM_ELEM = 16
     let is_free_nums = [];
-    let index_row_zero;
+    let index_row_zero = 4;
     for (let i = 0; i < NUM_ELEM; ++i) {
         is_free_nums.push(false);
     }
@@ -51,15 +51,15 @@ function fillField() {
     }
 
     if (!hasSolve(index_row_zero)) {
-        if (field[0][0] && field[0][1]) {
-            let tmp = field[0][0];
-            field[0][0] = field[0][1];
-            field[0][1] = tmp;
+        if (field[3][0] && field[3][1]) {
+            let tmp = field[3][0];
+            field[3][0] = field[3][1];
+            field[3][1] = tmp;
             return;
         }
-        let tmp = field[0][2];
-        field[0][2] = field[0][3];
-        field[0][3] = tmp;
+        let tmp = field[3][2];
+        field[3][2] = field[3][3];
+        field[3][3] = tmp;
     }
 }
 
