@@ -77,7 +77,7 @@ function hasSolve(index_row_zero) {
         }
     }
     //console.log(sum_inversion);
-    return !(((index_row_zero + 1) + sum_inversion) % 2);
+    return !!(((index_row_zero + 1) + sum_inversion) % 2);
 }
 
 function move(y, x) {
